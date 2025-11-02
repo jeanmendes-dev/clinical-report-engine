@@ -42,15 +42,23 @@ O projeto é organizado em três partes principais:
 
 ## 📊 Exemplo de Saída
 
-### Tabela de Demografia
-![Tabela de Demografia](screenshots/demographics.png)
+### Distribuicao por Tratamento e Sexo
+![Distribuicao por Tratamento e Sexo](1-distribuicaotratamento_sexo.png)
 
-### Gráfico de Eventos Adversos
-![Gráfico de Eventos Adversos](screenshots/adverse_events_plot.png)
+### Evento Adverso por Tratamento
+![Evento Adverso por Tratamento](2-eventoadverso_tratamento.png)
 
-### Análise de Gravidade
-![Análise de Gravidade](screenshots/severity_table.png)
+### Dados Brutos dos Participantes
+![Dados Brutos dos Participantes](3-dadosbrutos_participantes.png)
 
+### Análise Estatística
+![Análise Estatística](4-analiseestatistica.png)
+
+### Demografia por Tratamento
+![Demografia por Tratamento](5-tabelademografia_tratamento.png)
+
+### Gravidade dos Eventos Adversos por Tratamento
+![Gravidade dos Eventos Adversos por Tratamento](6-gravidadeea_tratamento.png)
 ---
 
 ## ▶️ Como Executar
