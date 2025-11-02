@@ -1,0 +1,180 @@
+---
+title: "Relatório Clínico Automatizado – Fase I–III"
+author: "Jean Mendes"
+date: "`r Sys.Date()`"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+# Carregar pacotes
+library(tidyverse)
+library(gt)
+
+# Carregar funções personalizadas
+source("tlf_functions.R")
+
+# Carregar dados
+clinical_data <- read.csv2("clinical_data.csv")
+```
+
+```{r data_validation, echo=FALSE}
+
+library(dplyr)
+
+# Lista para mensagens de erro/aviso
+issues <- character()
+
+# 1. IDs únicos?
+if (anyDuplicated(clinical_data$subject_id)) {
+  issues <- c(issues, "⚠️ IDs duplicados encontrados em subject_id.")
+}
+
+# 2. Valores permitidos em 'treatment'
+allowed_treat <- c("Drug A", "Placebo")
+if (!all(clinical_data$treatment %in% allowed_treat)) {
+  issues <- c(issues, "⚠️ Valores não permitidos na coluna 'treatment'.")
+}
+
+# 3. 'sex' deve ser M/F
+if (!all(clinical_data$sex %in% c("M", "F"))) {
+  issues <- c(issues, "⚠️ 'sex' deve conter apenas 'M' ou 'F'.")
+}
+
+# 4. IDs não nulos
+if (any(is.na(clinical_data$subject_id))) {
+  issues <- c(issues, "⚠️ subject_id não pode ser nulo.")
+}
+
+# Exibir resultado
+if (length(issues) == 0) {
+  cat("✅ Todos os dados passaram nas validações iniciais.\n")
+} else {
+  cat(paste(issues, collapse = "\n"))
+}
+```
+
+
+```{r}
+table_treatment <- clinical_data %>%
+  count(treatment, sex, .drop = FALSE) %>%
+  pivot_wider(names_from = sex, values_from = n, values_fill = 0)
+
+create_gt_table <- function(data, title = "Tabela")
+  data %>%
+    gt() %>%
+    tab_header(title = md(title)) %>%
+    fmt_number(columns = everything(), decimals = 0) %>%
+    tab_options(table.width = pct(100))
+  
+create_gt_table(table_treatment, "Distribuição por Tratamento e Sexo")
+
+```
+
+```{r}
+clinical_data %>%
+  ggplot(aes(x = treatment, fill = adverse_event)) +
+  geom_bar(position = "dodge", color = "black", size = 0.2) +  # borda preta
+  scale_fill_manual(values = c("No" = "#F8766D", "Yes" = "#00BFC4")) +  # cores suaves
+  labs(
+    title = "Eventos Adversos por Tratamento",
+    x = "Tratamento",
+    y = "Contagem",
+    fill = "Evento Adverso"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))  # centralizar título
+```
+
+```{r listing_raw}
+clinical_data %>%
+  select(subject_id, age, sex, treatment, adverse_event, severity) %>%
+  gt() %>%
+  tab_header(title = md("Listagem: Dados Brutos dos Participantes")) %>%
+  fmt_number(columns = age, decimals = 0)
+```
+
+```{r statistical_analysis}
+# Tabela de contingência
+tab_ae <- clinical_data %>%
+  select(treatment, adverse_event) %>%
+  mutate(adverse_event = ifelse(adverse_event == "Yes", 1, 0)) %>%
+  table()
+
+# Exibir tabela
+cat("Tabela de contingência:\n")
+print(tab_ae)
+
+# Verificar se o teste de Fisher é necessário (valores esperados < 5)
+fisher_result <- fisher.test(tab_ae)
+
+cat("\nResultado do Teste Exato de Fisher:\n")
+cat("- p-valor =", round(fisher_result$p.value, 4), "\n")
+
+if (fisher_result$p.value < 0.05) {
+  cat("✅ Resultado estatisticamente significativo (p < 0.05).\n")
+} else {
+  cat("ℹ️ Resultado não significativo (p >= 0.05).\n")
+}
+```
+
+```{r demographics}
+demog <- clinical_data %>%
+  group_by(treatment) %>%
+  summarise(
+    N = n(),
+    `Mean Age` = round(mean(age, na.rm = TRUE), 1),
+    `SD` = round(sd(age, na.rm = TRUE), 1),
+    .groups = "drop"
+  )
+
+# Formatar para tabela GT
+demog %>%
+  gt() %>%
+  tab_header(title = md("Tabela de Demografia por Tratamento")) %>%
+  fmt_number(columns = c(`Mean Age`, `SD`), decimals = 1) %>%
+  tab_options(table.width = pct(100))
+
+```
+
+```{r severity_analysis}
+
+severity_table <- clinical_data %>%
+  filter(adverse_event == "Yes") %>%
+  count(treatment, severity, .drop = FALSE) %>%
+  pivot_wider(
+    names_from = severity,
+    values_from = n,
+    values_fill = 0
+  ) %>%
+  select(treatment, Mild, Moderate, Severe)
+
+# Garantir que todas as colunas existam (caso alguma categoria não apareça)
+cols_needed <- c("Mild", "Moderate", "Severe")
+for (col in cols_needed) {
+  if (!col %in% names(severity_table)) {
+    severity_table[[col]] <- 0
+  }
+}
+severity_table <- severity_table %>% select(treatment, all_of(cols_needed))
+
+severity_table %>%
+  gt() %>%
+  tab_header(title = md("Gravidade dos Eventos Adversos por Tratamento")) %>%
+  fmt_number(columns = everything(), decimals = 0) %>%
+  tab_options(table.width = pct(100))
+
+cat("Número total de eventos adversos por tratamento:\n")
+clinical_data %>%
+  filter(adverse_event == "Yes") %>%
+  count(treatment) %>%
+  print()
+```
+
+
+```{r}
+# run_report.R
+rmarkdown::render("analysis.Rmd", output_format = "word_document")
+```
+
