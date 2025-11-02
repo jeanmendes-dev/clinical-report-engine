@@ -30,6 +30,29 @@ Totalmente **reprodutível, auditável e alinhado às boas práticas regulatóri
 
 ---
 
+## 🛠️ Estrutura do Projeto
+
+O projeto é organizado em três partes principais:
+
+- **`analysis.Rmd`**: Notebook principal que executa todas as análises, gera tabelas, gráficos e validações.
+- **`R/tlf_functions.R`**: Funções reutilizáveis, como `create_gt_table()`.
+- **`data/clinical_data.csv`**: Dados de exemplo usados para demonstração (formato CSV com separador `;`).
+
+---
+
+## 📊 Exemplo de Saída
+
+### Tabela de Demografia
+![Tabela de Demografia](screenshots/demographics.png)
+
+### Gráfico de Eventos Adversos
+![Gráfico de Eventos Adversos](screenshots/adverse_events_plot.png)
+
+### Análise de Gravidade
+![Análise de Gravidade](screenshots/severity_table.png)
+
+---
+
 ## ▶️ Como Executar
 
 ```r
