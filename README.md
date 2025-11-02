@@ -59,6 +59,7 @@ O projeto é organizado em três partes principais:
 
 ### Gravidade dos Eventos Adversos por Tratamento
 ![Gravidade dos Eventos Adversos por Tratamento](6-gravidadeea_tratamento.png)
+
 ---
 
 ## ▶️ Como Executar
