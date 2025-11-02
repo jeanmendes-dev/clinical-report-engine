@@ -30,12 +30,35 @@ Totalmente **reprodutível, auditável e alinhado às boas práticas regulatóri
 
 ---
 
+## 🛠️ Estrutura do Projeto
+
+O projeto é organizado em três partes principais:
+
+- **`analysis.Rmd`**: Notebook principal que executa todas as análises, gera tabelas, gráficos e validações.
+- **`R/tlf_functions.R`**: Funções reutilizáveis, como `create_gt_table()`.
+- **`data/clinical_data.csv`**: Dados de exemplo usados para demonstração (formato CSV com separador `;`).
+
+---
+
 ## ▶️ Como Executar
 
-```r
+
 # 1. Clone o repositório
 # 2. Instale dependências
 install.packages(c("tidyverse", "gt", "rmarkdown"))
 
 # 3. Gere o relatório
 rmarkdown::render("analysis.Rmd", output_format = "word_document")
+
+---
+
+## 📊 Exemplo de Saída
+
+### Tabela de Demografia
+![Tabela de Demografia](screenshots/demographics.png)
+
+### Gráfico de Eventos Adversos
+![Gráfico de Eventos Adversos](screenshots/adverse_events_plot.png)
+
+### Análise de Gravidade
+![Análise de Gravidade](screenshots/severity_table.png)
