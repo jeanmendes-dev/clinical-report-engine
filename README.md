@@ -58,7 +58,7 @@ The project is organized into three main components:
 ![Demographics by Treatment](img5.png)
 
 ### Severity of Adverse Events by Treatment
-![Severity of Adverse Events by Treatment](6-gravidadeea_tratamento.png)
+![Severity of Adverse Events by Treatment](img6.png)
 
 ---
 
