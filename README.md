@@ -1,73 +1,73 @@
 # 🧪 clinical-report-engine  
 **Automated TLFs (Tables, Listings, Figures) for Phase I–III Clinical Trials**
 
-> Solução em R para automação de relatórios regulatórios — ideal para CROs, bioestatísticos e profissionais de desenvolvimento clínico.
+> R-based solution for automating regulatory reports — ideal for CROs, biostatisticians, and clinical development professionals..
 
 ![R](https://img.shields.io/badge/R-4.4+-276DC3?logo=r)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-## 💡 O que é?
+## 💡 What Is It?
 
-Motor de relatórios clínicos em **R + RMarkdown** que gera automaticamente:
+A report engine built in R + RMarkdown that automatically generates::
 
-- ✅ **Tabelas** de demografia e distribuição (com `gt`)
-- ✅ **Listagens** dos dados brutos
-- ✅ **Figuras** de eventos adversos (`ggplot2`)
-- ✅ **Análise estatística** (Teste Exato de Fisher)
-- ✅ **Validação de dados** antes da geração
+- ✅ Tables for demographics and distributions (gt)
+- ✅ Listings of raw clinical data
+- ✅ Figures for adverse events (ggplot2)
+- ✅ Statistical analysis (Fisher’s Exact Test)
+- ✅ Data validation before report generation
 
-Totalmente **reprodutível, auditável e alinhado às boas práticas regulatórias** (ICH E3, CDISC).
-
----
-
-## 📦 Tecnologias
-
-- **R** (`tidyverse`, `gt`, `rmarkdown`)
-- Saída em **Word, HTML ou PDF**
-- Dados de exemplo em formato **CSV (compatível com separador `;`)**
+Fully reproducible, auditable, and compliant with regulatory best practices (ICH E3, CDISC).
 
 ---
 
-## 🛠️ Estrutura do Projeto
+## 📦 Technologies
 
-O projeto é organizado em três partes principais:
-
-- **`analysis.Rmd`**: Notebook principal que executa todas as análises, gera tabelas, gráficos e validações.
-- **`R/tlf_functions.R`**: Funções reutilizáveis, como `create_gt_table()`.
-- **`data/clinical_data.csv`**: Dados de exemplo usados para demonstração (formato CSV com separador `;`).
+- R (tidyverse, gt, rmarkdown)
+- Output formats: Word, HTML, or PDF
+- Example dataset in CSV format (semicolon-separated)
 
 ---
 
-## 📊 Exemplo de Saída
+## 🛠️ Project Structure
 
-### Distribuicao por Tratamento e Sexo
+The project is organized into three main components:
+
+- **`analysis.Rmd`**: Main notebook that runs all analyses, generates tables, figures, and validations..
+- **`R/tlf_functions.R`**: Reusable functions such as create_gt_table().
+- **`data/clinical_data.csv`**: Example dataset for demonstration (CSV format, semicolon-separated).
+
+---
+
+## 📊 Example Output
+
+### Distribution by Treatment and Sex
 ![Distribuicao por Tratamento e Sexo](1-distribuicaotratamento_sexo.png)
 
-### Evento Adverso por Tratamento
+### Adverse Event by Treatment
 ![Evento Adverso por Tratamento](2-eventoadverso_tratamento.png)
 
-### Dados Brutos dos Participantes
+### Raw Participant Data
 ![Dados Brutos dos Participantes](3-dadosbrutos_participantes.png)
 
-### Análise Estatística
+### Statistical Analysis
 ![Análise Estatística](4-analiseestatistica.png)
 
-### Demografia por Tratamento
+### Demographics by Treatment
 ![Demografia por Tratamento](5-tabelademografia_tratamento.png)
 
-### Gravidade dos Eventos Adversos por Tratamento
+### Severity of Adverse Events by Treatment
 ![Gravidade dos Eventos Adversos por Tratamento](6-gravidadeea_tratamento.png)
 
 ---
 
-## ▶️ Como Executar
+## ▶️ How to Run
 
 ```r
-# 1. Clone o repositório
-# 2. Instale dependências
+# 1. Clone the repository
+# 2. Install dependencies
 install.packages(c("tidyverse", "gt", "rmarkdown"))
 
-# 3. Gere o relatório
+# 3. Render the report
 rmarkdown::render("analysis.Rmd", output_format = "word_document")
