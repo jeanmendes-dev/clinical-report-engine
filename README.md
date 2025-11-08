@@ -43,19 +43,19 @@ The project is organized into three main components:
 ## 📊 Example Output
 
 ### Distribution by Treatment and Sex
-![Distribution by Treatment and Sex](1-distribuicaotratamento_sexo.png)
+![Distribution by Treatment and Sex](img1.png)
 
 ### Adverse Event by Treatment
-![Adverse Event by Treatment](2-eventoadverso_tratamento.png)
+![Adverse Event by Treatment](img2.png)
 
 ### Raw Participant Data
-![Raw Participant Data](3-dadosbrutos_participantes.png)
+![Raw Participant Data](img3.png)
 
 ### Statistical Analysis
-![Statistical Analysis](4-analiseestatistica.png)
+![Statistical Analysis](img4.png)
 
 ### Demographics by Treatment
-![Demographics by Treatment](5-tabelademografia_tratamento.png)
+![Demographics by Treatment](img5.png)
 
 ### Severity of Adverse Events by Treatment
 ![Severity of Adverse Events by Treatment](6-gravidadeea_tratamento.png)
