@@ -1,7 +1,7 @@
 # 🧪 clinical-report-engine  
 **Automated TLFs (Tables, Listings, Figures) for Phase I–III Clinical Trials**
 
-> R-based solution for automating regulatory reports — ideal for CROs, biostatisticians, and clinical development professionals..
+> R-based solution for automating regulatory reports — ideal for CROs, biostatisticians, and clinical development professionals.
 
 ![R](https://img.shields.io/badge/R-4.4+-276DC3?logo=r)
 ![License](https://img.shields.io/badge/License-MIT-green)
